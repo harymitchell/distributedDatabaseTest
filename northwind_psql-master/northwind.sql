@@ -103,7 +103,7 @@ CREATE TABLE customers (
 --
 
 CREATE TABLE employees (
-    employeeid smallint NOT NULL,
+    employeeid smallint serial primary key,
     lastname character varying(20) NOT NULL,
     firstname character varying(10) NOT NULL,
     title character varying(30),
@@ -3737,9 +3737,8 @@ ALTER TABLE ONLY customers
 -- Name: pk_employees; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY employees
-    ADD CONSTRAINT pk_employees PRIMARY KEY (employeeid);
-UPDATE employees SET employeeid = DEFAULT;
+--ALTER TABLE ONLY employees
+--    ADD CONSTRAINT pk_employees PRIMARY KEY (employeeid);
 
 --
 -- Name: pk_employeeterritories; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
