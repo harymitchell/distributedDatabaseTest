@@ -1,0 +1,25 @@
+{
+  "name": "pgTest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "testRunner.js",
+  "dependencies": {
+    "pg": "^6.1.5",
+    "simple-sql-parser": "^2.0.0-alpha.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harymitchell/distributedDatabaseTest.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harymitchell/distributedDatabaseTest/issues"
+  },
+  "homepage": "https://github.com/harymitchell/distributedDatabaseTest#readme"
+}
