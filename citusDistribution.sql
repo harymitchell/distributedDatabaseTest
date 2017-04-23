@@ -90,7 +90,7 @@ CREATE TABLE customerdemographics (
 --
 
 CREATE TABLE customers (
-    customerid bpchar NOT NULL,
+    customerid bpchar NOT NULL PRIMARY KEY,
     companyname character varying(40) NOT NULL,
     contactname character varying(30),
     contacttitle character varying(30),
