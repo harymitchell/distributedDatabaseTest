@@ -3739,7 +3739,7 @@ ALTER TABLE ONLY customers
 
 ALTER TABLE ONLY employees
     ADD CONSTRAINT pk_employees PRIMARY KEY (employeeid);
-
+UPDATE employees SET employeeid = DEFAULT;
 
 --
 -- Name: pk_employeeterritories; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 

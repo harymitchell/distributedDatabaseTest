@@ -1,5 +1,8 @@
 // Imports 
 var DistributedDatabaseInterface = require('./distributedDbInterface');
+var execSync = require('child_process').execSync;
+var fs = require('fs');
+var RESULTS_FILE = "results.csv";
 
 /**
  * A test runner for DistributedDatabaseInterface.
@@ -17,6 +20,7 @@ function DistributedDatabaseTestRunner(config){
     this.distributedDatabaseInterface = new DistributedDatabaseInterface(this.pg_configs);
     this.start;
     this.end;
+    this.ENV = config.ENV;
     
     /**
      * Starts the test. 
@@ -55,23 +59,18 @@ function DistributedDatabaseTestRunner(config){
     };
     
     /**
-     * 
+     * Called each time a quey ends to check if we are done.
      */
     this.queryCallback = function(_this){
         _this.incrementor++;
         if (_this.incrementor >= _this.n){
             _this.end = (new Date()).getTime();
             console.log ("Finished in", _this.end - _this.start, " ms");
+            fs.appendFileSync(RESULTS_FILE, "\n");
+            fs.appendFileSync(RESULTS_FILE, ([_this.ENV, _this.n, _this.end - _this.start]).join(","));
             process.exit();
         }
     };
-    
-    /**
-     * 
-     */
-    // function pollForCompletion(){
-        
-    // }
     
     /**
      * Returns a query for the given index and len.
@@ -83,20 +82,41 @@ function DistributedDatabaseTestRunner(config){
         } else if (n <= .5){
             return 'SELECT * from products join suppliers on suppliers.supplierid = products.supplierid';
         } else if (n <= .74){
-            return "SELECT * FROM Shippers";
-            // return "INSERT INTO employees VALUES ("+(i*100)+", 'TestInsert', 'TestInsert', 'TestInsert', 'Mr.', '1989-06-21', '1992-05-01', '507 - 20th Ave. E.Apt. 2A', 'Seattle', 'WA', '98122', 'USA', '(206) 555-9857', '5467', '\\x', 'Education includes a MS in CS in progress at GSU.', 2, 'http://accweb/emmployees/davolio.bmp')";
+            // return "SELECT * FROM Shippers";
+            return "INSERT INTO employees VALUES ('TestInsert', 'TestInsert', 'TestInsert', 'Mr.', '1989-06-21', '1992-05-01', '507 - 20th Ave. E.Apt. 2A', 'Seattle', 'WA', '98122', 'USA', '(206) 555-9857', '5467', '\\x', 'Education includes a MS in CS in progress at GSU.', 2, 'http://accweb/emmployees/davolio.bmp')";
         } else {
             return "SELECT * FROM Shippers";
         }
     }
 }
 
+/**
+ * Synchronously call this script as a child process with various input arguments.
+ */
+function runRunner(){
+    fs.writeFileSync(RESULTS_FILE, "environment,iterations,time");
+    var iterators = [10, 20, 30, 40, 50];
+    // var iterators = [100, 200, 500, 1000, 1500, 2000, 5000, 10000];
+    var environments = ['b', 'c', 'd'];
+    // var environments = ['a','b', 'c', 'd'];
+    
+    iterators.forEach(function(n){
+        environments.forEach(function(e){
+            execSync("node testRunner.js "+n+" "+e, {stdio:[0,1,2]});
+        }); 
+    });
+    console.log ("done");
+}
 
 ////////////////////////////////////////////////////////////////////////
 // Main function
 // @arg 1 n number of loops
 // @arg 2 env [a, b, c, d]
 if (typeof require === 'undefined' || require.main === module) {
+    if (process.argv[2] == "RUNNER"){
+        return runRunner();   
+    }
+    
     var BOX1 = 'localhost';//'ec2-54-201-245-57.us-west-2.compute.amazonaws.com';
     var BOX2 = 'ec2-54-200-181-33.us-west-2.compute.amazonaws.com';
     var BOX3 = 'ec2-54-187-146-174.us-west-2.compute.amazonaws.com';
@@ -158,7 +178,7 @@ if (typeof require === 'undefined' || require.main === module) {
     };
     
     var configBoxCitus = {
-        readOnly: true,
+        readOnly: false,
         user: 'northwind_user', //env var: PGUSER 
         database: 'northwind', //env var: PGDATABASE 
         password: 'thewindisblowing', //env var: PGPASSWORD 
@@ -182,7 +202,8 @@ if (typeof require === 'undefined' || require.main === module) {
     }
     var config = {
         pg_configs:  configs,
-        n: process.argv[2]
+        n: process.argv[2],
+        ENV: ENV
     };
     var runner = new DistributedDatabaseTestRunner(config);
     runner.run();
