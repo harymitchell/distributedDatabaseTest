@@ -109,7 +109,7 @@ CREATE TABLE customers (
 --
 
 CREATE TABLE employees (
-    employeeid smallint NOT NULL,
+    employeeid smallint NOT NULL PRIMARY KEY,
     lastname character varying(20) NOT NULL,
     firstname character varying(10) NOT NULL,
     title character varying(30),
@@ -141,27 +141,13 @@ CREATE TABLE employeeterritories (
 
 
 
-
---
--- Name: order_details; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE order_details (
-    orderid smallint NOT NULL,
-    productid smallint NOT NULL,
-    unitprice real NOT NULL,
-    quantity smallint NOT NULL,
-    discount real NOT NULL
-);
-
-
 --
 -- Name: orders; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE orders (
-    orderid smallint NOT NULL,
-    customerid bpchar,
+    orderid smallint NOT NULL PRIMARY KEY,
+    customerid bpchar REFERENCES customers (customerid),
     employeeid smallint,
     orderdate date,
     requireddate date,
@@ -176,15 +162,47 @@ CREATE TABLE orders (
     shipcountry character varying(15)
 );
 
+--
+-- Name: order_details; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE order_details (
+    orderid smallint NOT NULL PRIMARY KEY REFERENCES orders (orderid),
+    productid smallint NOT NULL,
+    unitprice real NOT NULL,
+    quantity smallint NOT NULL,
+    discount real NOT NULL
+);
+
+--
+-- Name: suppliers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE suppliers (
+    supplierid smallint NOT NULL PRIMARY KEY,
+    companyname character varying(40) NOT NULL,
+    contactname character varying(30),
+    contacttitle character varying(30),
+    address character varying(60),
+    city character varying(15),
+    region character varying(15),
+    postalcode character varying(10),
+    country character varying(15),
+    phone character varying(24),
+    fax character varying(24),
+    homepage text
+);
+
+
 
 --
 -- Name: products; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE products (
-    productid smallint NOT NULL,
+    productid smallint NOT NULL PRIMARY KEY,
     productname character varying(40) NOT NULL,
-    supplierid smallint,
+    supplierid smallint REFERENCES suppliers (supplierid),
     categoryid smallint,
     quantityperunit character varying(20),
     unitprice real,
@@ -210,31 +228,11 @@ CREATE TABLE region (
 --
 
 CREATE TABLE shippers (
-    shipperid smallint NOT NULL,
+    shipperid smallint NOT NULL PRIMARY KEY,
     companyname character varying(40) NOT NULL,
     phone character varying(24)
 );
 
-
-
---
--- Name: suppliers; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE suppliers (
-    supplierid smallint NOT NULL,
-    companyname character varying(40) NOT NULL,
-    contactname character varying(30),
-    contacttitle character varying(30),
-    address character varying(60),
-    city character varying(15),
-    region character varying(15),
-    postalcode character varying(10),
-    country character varying(15),
-    phone character varying(24),
-    fax character varying(24),
-    homepage text
-);
 
 
 --
