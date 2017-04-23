@@ -179,9 +179,9 @@ if (typeof require === 'undefined' || require.main === module) {
     
     var configBoxCitus = {
         readOnly: false,
-        user: 'northwind_user', //env var: PGUSER 
+        user: 'ec2-user', //env var: PGUSER 
         database: 'postgres', //env var: PGDATABASE 
-        password: 'thewindisblowing', //env var: PGPASSWORD 
+        password: 'postgres', //env var: PGPASSWORD 
         host: BOX_CITUS, 
         port: '5432', //env var: PGPORT 
         max: 10, // max number of clients in the pool 
