@@ -78,7 +78,7 @@ function DistributedDatabaseTestRunner(config){
     function queryForIndex(i, len){
         var n = i/len;
         if (n <= .25){
-            return 'SELECT * FROM orders join order_details on order_details.orderid = orders.orderid join customers on customers.customerid = orders.customerid';
+            return 'SELECT * FROM orders join order_details on order_details.orderid = orders.orderid';
         } else if (n <= .5){
             return 'SELECT * from products join suppliers on suppliers.supplierid = products.supplierid';
         } else if (n <= .74){
