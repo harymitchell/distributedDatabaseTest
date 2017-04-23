@@ -6,8 +6,8 @@
 
 psql postgres < /data/base/distributedDatabaseTest/citusDistribution.sql
 
-psql template1 -c "create user northwind_user;"
-psql template1 -c "alter user northwind_user password 'thewindisblowing';"
-psql template1 -c "grant all on DATABASE postgres to northwind_user;"
-psql postgres -c "GRANT ALL on ALL tables IN SCHEMA public to northwind_user"
-psql postgres -c "GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO northwind_user;"
+psql template1 -c "create user postgres;"
+psql template1 -c "alter user postgres password 'thewindisblowing';"
+psql template1 -c "grant all on DATABASE postgres to postgres;"
+psql postgres -c "GRANT ALL on ALL tables IN SCHEMA public to postgres"
+psql postgres -c "GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO postgres;"
