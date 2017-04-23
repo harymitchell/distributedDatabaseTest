@@ -103,7 +103,7 @@ CREATE TABLE customers (
 --
 
 CREATE TABLE employees (
-    employeeid smallint serial primary key,
+    employeeid serial primary key,
     lastname character varying(20) NOT NULL,
     firstname character varying(10) NOT NULL,
     title character varying(30),
