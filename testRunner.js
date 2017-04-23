@@ -83,7 +83,7 @@ function DistributedDatabaseTestRunner(config){
             return 'SELECT * from products join suppliers on suppliers.supplierid = products.supplierid';
         } else if (n <= .74){
             // return "SELECT * FROM Shippers";
-            return "INSERT INTO employees (firstname, lastname) VALUES ('TestInsert', 'TestInsert')";//, 'TestInsert', 'Mr.', '1989-06-21', '1992-05-01', '507 - 20th Ave. E.Apt. 2A', 'Seattle', 'WA', '98122', 'USA', '(206) 555-9857', '5467', '\\x', 'Education includes a MS in CS in progress at GSU.', 2, 'http://accweb/emmployees/davolio.bmp')";
+            return "INSERT INTO demo (description) VALUES ('TestInsert')";//, 'TestInsert', 'Mr.', '1989-06-21', '1992-05-01', '507 - 20th Ave. E.Apt. 2A', 'Seattle', 'WA', '98122', 'USA', '(206) 555-9857', '5467', '\\x', 'Education includes a MS in CS in progress at GSU.', 2, 'http://accweb/emmployees/davolio.bmp')";
         } else {
             return "SELECT * FROM Shippers";
         }
