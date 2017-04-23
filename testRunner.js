@@ -180,7 +180,7 @@ if (typeof require === 'undefined' || require.main === module) {
     var configBoxCitus = {
         readOnly: false,
         user: 'northwind_user', //env var: PGUSER 
-        database: 'northwind', //env var: PGDATABASE 
+        database: 'postgres', //env var: PGDATABASE 
         password: 'thewindisblowing', //env var: PGPASSWORD 
         host: BOX_CITUS, 
         port: '5432', //env var: PGPORT 
