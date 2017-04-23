@@ -95,10 +95,10 @@ function DistributedDatabaseTestRunner(config){
  */
 function runRunner(){
     fs.writeFileSync(RESULTS_FILE, "environment,iterations,time");
-    var iterators = [10, 20, 30, 40, 50];
-    // var iterators = [100, 200, 500, 1000, 1500, 2000, 5000, 10000];
-    var environments = ['b', 'c', 'd'];
-    // var environments = ['a','b', 'c', 'd'];
+    // var iterators = [10, 20, 30, 40, 50];
+    var iterators = [100, 200, 500, 1000, 1500, 2000, 5000, 10000];
+    // var environments = ['b', 'c', 'd'];
+    var environments = ['a','b', 'c', 'd'];
     
     iterators.forEach(function(n){
         environments.forEach(function(e){
