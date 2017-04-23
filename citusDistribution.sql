@@ -46,6 +46,7 @@ DROP TABLE IF EXISTS usstates;
 DROP TABLE IF EXISTS categories;
 DROP TABLE IF EXISTS region;
 DROP TABLE IF EXISTS employees;
+DROP TABLE IF EXISTS demos;
 
 --
 -- Name: categories; Type: TABLE; Schema: public; Owner: -; Tablespace: 
@@ -260,22 +261,22 @@ CREATE TABLE usstates (
 
 -- Distrbiutes the Northwinds database across the Citus worker nodes.
 
--- SELECT create_distributed_table('categories', 'categoryid');
--- SELECT create_distributed_table('customercustomerdemo', 'customerid');
--- SELECT create_distributed_table('customerdemographics', 'customertypeid');
--- SELECT create_distributed_table('customers', 'customerid');
--- SELECT create_distributed_table('employees', 'employeeid');
--- SELECT create_distributed_table('employeeterritories', 'employeeid');
--- SELECT create_distributed_table('order_details', 'orderid');
--- SELECT create_distributed_table('orders', 'orderid', colocate_with => 'order_details');
--- SELECT create_distributed_table('products', 'productid');
--- SELECT create_distributed_table('shippers', 'shipperid');
--- SELECT create_distributed_table('suppliers', 'supplierid');
+SELECT create_distributed_table('categories', 'categoryid');
+SELECT create_distributed_table('customercustomerdemo', 'customerid');
+SELECT create_distributed_table('customerdemographics', 'customertypeid');
+SELECT create_distributed_table('customers', 'customerid');
+SELECT create_distributed_table('employees', 'employeeid');
+SELECT create_distributed_table('employeeterritories', 'employeeid');
+SELECT create_distributed_table('order_details', 'orderid');
+SELECT create_distributed_table('orders', 'orderid', colocate_with => 'order_details');
+SELECT create_distributed_table('products', 'productid');
+SELECT create_distributed_table('shippers', 'shipperid');
+SELECT create_distributed_table('suppliers', 'supplierid');
 
--- SELECT create_reference_table('region');
--- SELECT create_reference_table('territories');
--- SELECT create_reference_table('usstates');
--- SELECT create_reference_table('region');
+SELECT create_reference_table('region');
+SELECT create_reference_table('territories');
+SELECT create_reference_table('usstates');
+SELECT create_reference_table('region');
 
 --
 -- Data for Name: categories; Type: TABLE DATA; Schema: public; Owner: -
@@ -3724,6 +3725,7 @@ INSERT INTO usstates VALUES (50, 'Wisconsin', 'WI', 'midwest');
 INSERT INTO usstates VALUES (51, 'Wyoming', 'WY', 'west');
 
 
+/**
 --
 -- Name: pk_categories; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
@@ -3936,3 +3938,4 @@ ALTER TABLE ONLY employees
 -- PostgreSQL database dump complete
 --
 
+**/
